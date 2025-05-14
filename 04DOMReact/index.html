@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script>
+    let timeout;
+    //debounce function to limit the rate at which a function can fire
+    function debouncepopulateDiv(func, delay) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            populateDiv2();
+        }, 1000);
+        
+    };
+    
+    /*function populateDiv(){
+        var firstNumber = document.getElementById("firstNumber").value;
+        var secondNumber = document.getElementById("secondNumber").value;
+        //var result = parseInt(firstNumber) + parseInt(secondNumber);
+        fetch("http://localhost:8081/sum?a="  +firstNumber  + "&&b=" + secondNumber)
+            .then(function(response){
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                response.text().then(function(ans) {
+                    console.log(ans);
+                    document.getElementById("result").value = ans;
+                    document.getElementById("FinalSum").innerHTML = "The sum is: " + ans;
+            })
+                });
+                
+    }*/
+   async function populateDiv2() {  
+        var firstNumber = document.getElementById("firstNumber").value;
+        var secondNumber = document.getElementById("secondNumber").value;
+        const response = await fetch("http://localhost:8081/sum?a="  +firstNumber  + "&&b=" + secondNumber);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const ans = await response.text();
+        console.log(ans);
+        document.getElementById("result").value = ans;
+        document.getElementById("FinalSum").innerHTML = "The sum is: " + ans;
+    
+   }
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <!--<link rel="stylesheet" href="style.css">
+    <script src="index.js" crossorigin></script>-->
+</head>
+<style>
+    .container {
+        background-color: lightblue;
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        display: inline-block;
+    }
+    .container:hover {
+        background-color: lightgreen;
+    }
+</style>
+
+<body>
+    <input oninput ="debouncepopulateDiv()" type="text" placeholder="1st number" id="firstNumber"></body></input><br><br>
+    <input oninput ="debouncepopulateDiv()" type="text" placeholder="2nd number" id="secondNumber"></input><br><br>
+    <input type="text" placeholder="Result" id="result"></input><br>
+    <!--<button onclick="populateDiv()">Calculate sum</button>-->
+    <div id ="FinalSum"></div>
+</body> 
+    
+</html>
