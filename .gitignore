@@ -1,0 +1,10 @@
+dist
+node_modules
+# Ignore compiled JavaScript files and maps
+**/*.js
+**/*.js.map
+
+# Ignore build/output directories (adjust if needed)
+dist/
+build/
+lib/

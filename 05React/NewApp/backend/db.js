@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://abhijitbhowmick2025:Diki@2025@cluster0.immlkie.mongodb.net/todos?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://abhijitbhowmick2025:Diki2025@cluster0.immlkie.mongodb.net/todos').then(() => {
+    console.log('Connected to MongoDB');
+}
+).catch((err) => {
+    console.log('Error connecting to MongoDB:', err);
+}   
+);
 
 const todoSchema = mongoose.Schema({
     tittle: {
